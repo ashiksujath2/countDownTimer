@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head> <title> Count DOwn Timer</title></head>
+  <body> <div align="center">
+    <p><canvas id = "timer" width = "300" height = "300"></canvas></p>
+    <form>
+    <p>Minutes: <input type = "text" id = "mins"/>
+      Seconds: <input type = "text" id = "secs"/>
+      <input type = "button" value = "SET" onClick="set()" id = "setButton"><br/>
+     <p> <input type = "button" value = "START" onClick="start()">
+       <input type = "button" value = "STOP" onClick="stoper()"></p>
+    </p>
+    </form></div>
+    <script>
+	  var canvas = document.getElementById("timer");
+	  var context = canvas.getContext("2d");
+	  function set() {
+	    var mins = document.getElementById("mins").value;
+	    var secs = document.getElementById("secs").value;
+	    document.getElementById("setButton").disabled = true;
+	    initial = (parseInt(mins)*60 + parseInt(secs))
+	  }
+	  function start() {
+		timer = setInterval("downTimer()",1000);
+	  }
+	  function stoper() {
+	    clearInterval(timer);
+		document.getElementById("setButton").disabled = false;
+	  }
+	  function timeString(time) {
+		var mins = Math.floor(time/60);
+		var secs = (time % 60);
+		return (secs < 10)? mins+":0"+secs : mins+":"+secs;
+	  }
+	  	
+	  function downTimer() {
+		canvas.width = 300;
+		context.fillStyle = "red";
+	  	context.font = "bold 100px Arial";
+		if (initial >= 0) {
+	      context.fillText(timeString(initial),100,250);
+		  initial -= 1;
+		}
+		else {
+	      context.fillText(timeString(0),100,250);
+		  stoper();
+		}
+	  }
+	</script>
+  </body>
+</html>
